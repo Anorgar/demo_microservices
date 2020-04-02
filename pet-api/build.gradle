@@ -52,15 +52,19 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-undertow")
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
-    implementation("org.apache.commons:commons-lang3:3.8.1")
-    implementation("org.codehaus.jettison:jettison:1.4.0")
     compileOnly('org.projectlombok:lombok:1.18.8')
 
     //Helpers
     compile("io.vavr:vavr:0.9.2")
     compile("org.apache.commons:commons-lang3:3.9")
-    compile("commons-validator:commons-validator:1.6")
 
     compile group: 'org.webjars', name: 'bootstrap', version: '4.4.1-1'
+
+
+    testImplementation("io.rest-assured:rest-assured:3.0.+")
+    testImplementation("io.rest-assured:json-schema-validator:3.0.+")
+    testImplementation("io.rest-assured:spring-mock-mvc:3.0.+")
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation("com.marvinformatics.feign:feign-mock:0.7")
 
 }

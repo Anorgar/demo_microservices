@@ -1,0 +1,28 @@
+serverconfig:
+  host: api-recette-config.cultura.intra
+  port: 80
+
+spring:
+  application:
+    name: productsearchcomposite
+  cloud:
+    config:
+      failFast: true
+      uri: http://${serverconfig.host}:${serverconfig.port}
+
+encrypt:
+  failOnError: true
+
+info:
+  name: productsearchcomposite
+  version: ${version}
+  profile: ${spring.profiles.active}
+
+---
+
+spring:
+  profiles: acceptance,recette,preprod,prod
+
+serverconfig:
+  host: config
+  port: 8000

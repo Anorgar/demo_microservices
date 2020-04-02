@@ -1,0 +1,17 @@
+micronaut:
+  application:
+    name: storescore
+  config-client:
+    enabled: true
+  router:
+    static-resources:
+      swagger:
+        paths: classpath:META-INF/swagger
+        mapping: /swagger/**
+
+spring:
+  cloud:
+    config:
+      enabled: true
+#      uri: http://api-recette-config.cultura.intra:80/
+      uri: http://config:8000/

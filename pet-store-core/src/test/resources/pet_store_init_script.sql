@@ -17,3 +17,12 @@ CREATE TABLE pet (
   name varchar(255),
   PRIMARY KEY (id)
 );
+
+INSERT INTO pet_type
+(id, type)
+VALUES(1, 'chat');
+
+
+INSERT INTO pet
+(id, type_id, number, price, name)
+VALUES(1, 1, 2, 2.99, 'chat persan');

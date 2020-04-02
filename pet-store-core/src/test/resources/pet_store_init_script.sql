@@ -17,18 +17,3 @@ CREATE TABLE pet (
   name varchar(255),
   PRIMARY KEY (id)
 );
-
-INSERT INTO pet_type
-(id, type)
-VALUES(1, 'chat');
-INSERT INTO pet_type
-(id, type)
-VALUES(2, 'chien');
-
-
-INSERT INTO pet
-(id, type_id, number, price, name)
-VALUES(1, 1, 17, 255.99, 'chat persan');
-INSERT INTO pet
-(id, type_id, number, price, name)
-VALUES(2, 2, 25, 100.50, 'caniche');

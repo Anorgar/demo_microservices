@@ -1,16 +1,66 @@
-plugins {
-    id 'java'
+buildscript {
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: '2.0.3.RELEASE'
+    }
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:Finchley.RELEASE"
+    }
+}
 
 repositories {
     mavenCentral()
 }
 
+
+
+test {
+    // Set to `true` in order to show tests on the standard output
+    testLogging.showStandardStreams = false
+}
+wrapper {
+    distributionType = Wrapper.DistributionType.BIN
+}
+
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    annotationProcessor("org.projectlombok:lombok:1.18.8")
+
+    implementation("io.github.openfeign:feign-httpclient:9.5.1")
+    compile("io.github.openfeign:feign-okhttp:(9.3.1,)")
+    compile("io.github.openfeign:feign-gson:(9.3.1,)")
+    compile("io.github.openfeign:feign-slf4j:(9.3.1,)")
+    compile('com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.5')
+
+    compile('org.springframework.boot:spring-boot-starter-web') {
+        exclude module: 'spring-boot-starter-tomcat'
+    }
+    implementation("org.springframework.boot:spring-boot-starter-undertow")
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+    implementation("org.apache.commons:commons-lang3:3.8.1")
+    implementation("org.codehaus.jettison:jettison:1.4.0")
+    compileOnly('org.projectlombok:lombok:1.18.8')
+
+    //Helpers
+    compile("io.vavr:vavr:0.9.2")
+    compile("org.apache.commons:commons-lang3:3.9")
+    compile("commons-validator:commons-validator:1.6")
+
+    compile group: 'org.webjars', name: 'bootstrap', version: '4.4.1-1'
+
 }

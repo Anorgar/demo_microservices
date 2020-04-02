@@ -1,2 +1,4 @@
 rootProject.name = 'pet-api'
+version = "1.0.0"
+group = 'microservices.demo.petshop'
 

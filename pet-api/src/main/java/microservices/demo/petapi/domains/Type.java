@@ -1,4 +1,4 @@
-package microservices.demo.petcore.domains.dtos;
+package microservices.demo.petapi.domains;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Getter
-public class TypeDTO {
+public class Type {
 
   private Integer id;
   private String type;

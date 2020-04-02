@@ -1,17 +1,23 @@
 micronaut:
   application:
-    name: storescore
-  config-client:
-    enabled: true
-  router:
-    static-resources:
-      swagger:
-        paths: classpath:META-INF/swagger
-        mapping: /swagger/**
+    name: pet-store-core
+  server:
+    port: 8081
 
-spring:
-  cloud:
-    config:
-      enabled: true
-#      uri: http://api-recette-config.cultura.intra:80/
-      uri: http://config:8000/
+datasources:
+  default:
+    url: "jdbc:h2:mem:pet-db;INIT=runscript from 'classpath:/pet_store_init_script.sql'"
+    username: sa
+    password: ""
+    driverClassName: org.h2.Driver
+
+jpa:
+  default:
+    entity-scan:
+      packages:
+        - 'microservices.demo.petcore.domains.entities'
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: none
+        show_sql: true

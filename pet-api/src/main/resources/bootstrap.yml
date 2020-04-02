@@ -1,28 +1,15 @@
-serverconfig:
-  host: api-recette-config.cultura.intra
-  port: 80
-
 spring:
   application:
-    name: productsearchcomposite
-  cloud:
+    name: pet-api
+  thymeleaf:
+    prefix: "classpath:/templates/"
+
+feign:
+  client:
     config:
-      failFast: true
-      uri: http://${serverconfig.host}:${serverconfig.port}
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
 
-encrypt:
-  failOnError: true
 
-info:
-  name: productsearchcomposite
-  version: ${version}
-  profile: ${spring.profiles.active}
-
----
-
-spring:
-  profiles: acceptance,recette,preprod,prod
-
-serverconfig:
-  host: config
-  port: 8000

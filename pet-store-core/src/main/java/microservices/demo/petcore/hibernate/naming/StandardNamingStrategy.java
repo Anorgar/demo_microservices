@@ -1,4 +1,4 @@
-package cultura.stores.hibernate.naming;
+package microservices.demo.petcore.hibernate.naming;
 
 import io.micronaut.context.annotation.Replaces;
 import io.micronaut.data.hibernate.naming.DefaultPhysicalNamingStrategy;

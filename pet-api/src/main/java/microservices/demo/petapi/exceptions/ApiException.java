@@ -1,4 +1,4 @@
-package microservices.demo.petcore.exceptions;
+package microservices.demo.petapi.exceptions;
 
 import lombok.Getter;
 

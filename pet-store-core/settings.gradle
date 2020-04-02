@@ -1,3 +1,2 @@
 rootProject.name = 'pet-store-core'
-version = "1.0.0"
-group = 'microservices.demo.petshop'
+

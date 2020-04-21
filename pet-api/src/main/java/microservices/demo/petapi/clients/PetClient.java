@@ -12,4 +12,6 @@ public interface PetClient {
   @RequestMapping(method = RequestMethod.GET, value = "/pet")
   List<Pet> retrievePets();
 
+  @RequestMapping(method = RequestMethod.DELETE, value = "/pet")
+  List<Pet> deletePets() ;
 }

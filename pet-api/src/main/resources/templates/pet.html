@@ -44,13 +44,22 @@
         <td th:text="${pet.type.type}"></td>
         <td th:text="${pet.price}"></td>
         <td th:text="${pet.number}"></td>
+     <td th:button><button class="deleteBtn">Delete</button></td>
       </tr>
     </tbody>
   </table>
 
 
 </main>
+<script>
 
+  window.onclick = function(event) {
+  if (event.target == deleteBtn) {
+    service.deletePets();
+      }
+}
+</script>
 <script type="text/javascript" th:src="@{webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+
 </body>
 </html>

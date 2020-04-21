@@ -20,7 +20,7 @@ public class PetService {
     return Try.of(() -> repository.findAll())
         .map(pets -> IteratorUtils.toList(pets.iterator()))
         .map(PetMapper::mapEntitiesToDTOs)
-        .getOrElseThrow(e -> new ApiException("Unable to retrive pets", 500));
+        .getOrElseThrow(e -> new ApiException("Unable to retrieve pets", 500));
   }
 
 }

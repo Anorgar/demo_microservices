@@ -13,7 +13,7 @@ public class PetController {
   @Autowired
   private PetService service;
 
-  @GetMapping(value = "/pet")gr
+  @GetMapping(value = "/pet")
   public String retrievePets(Model model){
     model.addAttribute("pets", service.retrievePets());
     return "pet";

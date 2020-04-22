@@ -3,6 +3,7 @@ package microservices.demo.petapi.clients;
 import java.util.List;
 import microservices.demo.petapi.domains.Pet;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -12,6 +13,8 @@ public interface PetClient {
   @RequestMapping(method = RequestMethod.GET, value = "/pet")
   List<Pet> retrievePets();
 
+
   @RequestMapping(method = RequestMethod.DELETE, value = "/pet")
-  List<Pet> deletePets() ;
+  List<Pet> deletePets();
+
 }

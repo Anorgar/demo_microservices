@@ -18,16 +18,8 @@ public class PetController {
   public String retrievePets(Model model){
     model.addAttribute("pets", service.retrievePets());
     return "pet";
-
-
     }
 
-  @DeleteMapping(value = "/pet")
-  public String deletePets(Model model){
-    model.addAttribute("pets", service.deletePets());
-    return "pet";
-
-  }
   @RequestMapping("/home")
   public String Home() {
     return "home";

@@ -18,8 +18,5 @@ public class PetService {
     return Try.of(() -> petClient.retrievePets())
         .getOrElseThrow(e -> new ApiException(e.getMessage(), 500));
   }
-  public List<Pet> deletePets(){
-    return Try.of(() -> petClient.deletePets())
-            .getOrElseThrow(e -> new ApiException(e.getMessage(), 500));
-  }
+
 }

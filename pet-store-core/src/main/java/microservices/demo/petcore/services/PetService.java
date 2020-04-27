@@ -56,7 +56,7 @@ public class PetService {
             throw new ApiException("Unable to delete pets", 500);
         }
     }
-  }
+
   public void PutPet(Pet pet) {
 
     try {

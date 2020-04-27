@@ -8,6 +8,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import microservices.demo.petcore.domains.dtos.PetDTO;
+import microservices.demo.petcore.domains.dtos.TypeDTO;
+import microservices.demo.petcore.domains.entities.Pet;
+import microservices.demo.petcore.domains.entities.Type;
 import microservices.demo.petcore.services.PetService;
 
 @Controller("/pet")
@@ -21,10 +24,15 @@ public class PetController {
     return service.retrievePets();
   }
 
-  @Delete (value = "/{id}")
+  /*@Delete (value = "/{id}")
   public HttpResponse deletePet(@PathVariable Integer id){
       service.deletePet(id);
         return HttpResponse.ok();
-  }
+  }*/
 
+  @Post
+  public HttpResponse createPet(@Body PetDTO pet){
+    service.createPet(pet);
+    return HttpResponse.ok();
+  }
 }

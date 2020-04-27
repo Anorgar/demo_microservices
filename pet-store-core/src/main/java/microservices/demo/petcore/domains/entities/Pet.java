@@ -1,17 +1,12 @@
 package microservices.demo.petcore.domains.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import microservices.demo.petcore.domains.dtos.TypeDTO;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class Pet {
 
   @Id
-  @GeneratedValue(strategy= GenerationType.AUTO)
+  @GeneratedValue(strategy= GenerationType.IDENTITY)
   @Column(name = "id")
   private Integer id;
 
@@ -35,7 +30,8 @@ public class Pet {
   @Column(name = "price")
   private Double price;
 
-  @OneToOne
-  @JoinColumn(name = "id")
+  @ManyToOne(cascade = CascadeType.DETACH)
+  @JoinColumn
   private Type type;
+
 }

@@ -2,8 +2,8 @@ package microservices.demo.petcore.services;
 
 import io.reactivex.annotations.NonNull;
 import io.vavr.control.Try;
-
 import java.util.List;
+import java.util.Optional;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -31,7 +31,7 @@ public class PetService {
                 .map(PetMapper::mapEntitiesToDTOs)
                 .getOrElseThrow(e -> new ApiException("Unable to retrieve pets", 500));
 
-    }
+  }
 
   /*public void deletePets() {
     repository.deleteById(pet.getId());
@@ -56,6 +56,34 @@ public class PetService {
             throw new ApiException("Unable to delete pets", 500);
         }
     }
+  }
+  public void PutPet(Pet pet) {
+
+    try {
+      repository.update(pet);
+    }
+
+    catch (RuntimeException e){
+      log.error("unable to update pet", e);
+      throw new ApiException("Unable to update pets", 500);
+    }
+  }
+  /*public void retrieveByIDPets(Integer id) {
+
+    try {
+      repository.findById(id);
+    } catch (RuntimeException e) {
+      log.error("unable to get id's pet", e);
+      throw new ApiException("Unable to get id's pets", 500);
+
+  }
+  }*/
+  public Optional<Pet> retrievePetsByID(Integer id) {
+
+      return repository.findById(id);
+
+
+  }
 
     public void createPet(PetDTO pet) {
 
@@ -68,27 +96,3 @@ public class PetService {
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

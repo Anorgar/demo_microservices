@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Getter
 public class TypeDTO {
 
-  private Integer id;
-  private String type;
+    private Integer id;
+    private String type;
 
 }

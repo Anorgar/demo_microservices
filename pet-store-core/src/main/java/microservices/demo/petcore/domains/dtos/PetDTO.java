@@ -11,10 +11,10 @@ import lombok.NoArgsConstructor;
 @Getter
 public class PetDTO {
 
-  private Integer id;
-  private String name;
-  private Integer number;
-  private Double price;
-  private TypeDTO type;
+    private Integer id;
+    private String name;
+    private Integer number;
+    private Double price;
+    private TypeDTO type;
 
 }

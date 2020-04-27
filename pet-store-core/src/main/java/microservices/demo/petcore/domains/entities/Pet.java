@@ -16,22 +16,22 @@ import microservices.demo.petcore.domains.dtos.TypeDTO;
 @Table(name = "pet")
 public class Pet {
 
-  @Id
-  @GeneratedValue(strategy= GenerationType.IDENTITY)
-  @Column(name = "id")
-  private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
 
-  @Column(name = "name")
-  private String name;
+    @Column(name = "name")
+    private String name;
 
-  @Column(name = "number")
-  private Integer number;
+    @Column(name = "number")
+    private Integer number;
 
-  @Column(name = "price")
-  private Double price;
+    @Column(name = "price")
+    private Double price;
 
-  @ManyToOne(cascade = CascadeType.DETACH)
-  @JoinColumn
-  private Type type;
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn
+    private Type type;
 
 }

@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Type</title>
+
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}"/>
+
+</head>
+
+
+<body>
+
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <a class="navbar-brand" href="/home">Pet shop</a>
+    <ul class="navbar-nav">
+        <li class="nav-item active">
+            <a class="nav-link" href="/pet">Pets</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled">Customers</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="/type">Types</a>
+        </li>
+    </ul>
+</nav>
+
+<main role="main" class="container">
+
+    <h2>Available types</h2>
+
+    <table class="table table-striped table-dark">
+        <thead>
+        <tr>
+            <th scope="col">Type</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="type : ${types}">
+
+            <td th:text="${type.type}"></td>
+
+        </tr>
+        </tbody>
+    </table>
+
+
+</main>
+
+<script type="text/javascript" th:src="@{webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+
+</body>
+
+</html>

@@ -1,7 +1,6 @@
 package microservices.demo.petcore.controllers;
 
 import io.micronaut.http.HttpResponse;
-import io.micronaut.http.MutableHttpResponse;
 import io.micronaut.http.annotation.*;
 
 import java.util.List;

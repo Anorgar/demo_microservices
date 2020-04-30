@@ -3,14 +3,14 @@ DROP TABLE if EXISTS pet_type;
 DROP TABLE if EXISTS pet;
 
 CREATE TABLE pet_type (
-  id smallint(6) NOT NULL,
+  id smallint(6) NOT NULL auto_increment,
   type varchar(255),
   PRIMARY KEY (id)
 );
 
 
 CREATE TABLE pet (
-  id smallint(6) NOT NULL,
+  id smallint(6) NOT NULL auto_increment,
   type_id smallint(6),
   number smallint(6),
   price decimal(5,2),

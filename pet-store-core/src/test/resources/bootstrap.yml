@@ -1,0 +1,21 @@
+micronaut:
+  application:
+    name: pet-store-core
+
+datasources:
+  default:
+    url: "jdbc:h2:mem:pet-db;INIT=runscript from 'classpath:/pet_store_init_script.sql'"
+    username: sa
+    password: ""
+    driverClassName: org.h2.Driver
+
+jpa:
+  default:
+    entity-scan:
+      packages:
+        - 'microservices.demo.petcore.domains.entities'
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: none
+        show_sql: true

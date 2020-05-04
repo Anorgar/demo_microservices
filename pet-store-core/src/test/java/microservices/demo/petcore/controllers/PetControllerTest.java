@@ -28,32 +28,55 @@ public class PetControllerTest {
         RestAssured.port = embeddedServer.getPort();
     }
 
-   @Test
+    @Test
+    public void should_test_pets() {
+
+//CREATE
+        given()
+                .accept(ContentType.JSON)
+                .contentType(ContentType.JSON)
+                .when()
+                .body(Pet.builder()
+                        .name("Bojack")
+                        .number(50)
+                        .price(70d)
+                        .type(Type.builder()
+                                .id(1)
+                                .type("chat")
+                                .build())
+                        .build())
+                .post("/pet")
+                .then()
+                .body("id", equalTo(2),
+                        "name", equalTo("Bojack"),
+                        "number", equalTo(50),
+                        "price", equalTo(70f),
+                        "type.id", equalTo(1),
+                        "type.type", equalTo("chat")
+
+                );
+//READ
+        given()
+                .when()
+                .get("/pet")
+                .then()
+                .body("[0].id", equalTo(1));
+
+//DELETE
+        given()
+                .when()
+                .delete("/pet/{id}", 2)
+                .then()
+                .statusCode(200);
+
+    }
+
+}
+
+
+//RETRIEVE
+    /*@Test
     public void should_retrieve_pets() {
-       given()
-               .accept(ContentType.JSON)
-               .contentType(ContentType.JSON)
-               .when()
-               .body(Pet.builder()
-                       .name("Bojack")
-                       .number(50)
-                       .price(70d)
-                       .type(Type.builder()
-                               .id(1)
-                               .type("chat")
-                               .build())
-                       .build())
-               .post("/pet")
-               .then()
-               .body("id", equalTo(2),
-                       "name", equalTo("Bojack"),
-                       "number", equalTo(50),
-                       "price", equalTo(70f),
-                       "type.id", equalTo(1),
-                       "type.type", equalTo("chat")
-
-               );
-
         given()
                 .when()
                 .get("/pet")
@@ -64,9 +87,9 @@ public class PetControllerTest {
                         "[0].price", equalTo(2.99f),
                         "[0].name", equalTo("chat persan")
                 );
-    }
+    }*/
 
-
+//DELETE
    /* @Test
     public void should_delete_pets() {
         given()
@@ -77,17 +100,9 @@ public class PetControllerTest {
 
     }*/
 
-   /* {
-        "name": "Bojack",
-            "number": 50,
-            "price": 400,
-            "type": {
-        "id": 3,
-                "type": "cheval"
-    }*/
 
-
-   @Test
+//CREATE
+    /*@Test
     public void should_create_pets() {
 
         given()
@@ -113,10 +128,11 @@ public class PetControllerTest {
                         "type.type", equalTo("chat")
 
                 );
-        /*.body(equalTo(""));*/
+    }*/
+/*.body(equalTo(""));*/
 
-    }
 
+//READ
     /*@Test
     public void should_read_pets() {
 
@@ -127,32 +143,11 @@ public class PetControllerTest {
                 .body("[0].id", equalTo(1));
 
     }*/
-}
-
-      /*  given()
-                .when()
-                .post("/pet")
-                .then()
-                .body("id", equalTo(3),
-                        "type.id", equalTo(1),
-                        "type.type", equalTo("chat"),
-                        "price", equalTo(30f),
-                        "name", equalTo("cheval")
-                );
 
 
-        /* given()
-              .when()
-              .post("/pet")
-              .then()
 
-      given()
-              .when()
-              .delete("/pet")
-              .then()
-              .statusCode(200);
 
-              "id.size", equalTo(null),*/
+/* "id.size", equalTo(null),*/
 
 
 

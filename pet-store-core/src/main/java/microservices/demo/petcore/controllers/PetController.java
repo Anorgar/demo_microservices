@@ -29,9 +29,8 @@ public class PetController {
     }
 
     @Post
-    public HttpResponse createPet(@Body PetDTO pet) {
-        service.createPet(pet);
-        return HttpResponse.ok();
+    public PetDTO createPet(@Body PetDTO pet) {
+        return service.createPet(pet);
     }
 
     @Put

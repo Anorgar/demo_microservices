@@ -11,6 +11,9 @@ import io.restassured.RestAssured;
 
 import javax.inject.Inject;
 
+import io.restassured.http.ContentType;
+import microservices.demo.petcore.domains.entities.Pet;
+import microservices.demo.petcore.domains.entities.Type;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,8 +28,32 @@ public class PetControllerTest {
         RestAssured.port = embeddedServer.getPort();
     }
 
-    @Test
+   @Test
     public void should_retrieve_pets() {
+       given()
+               .accept(ContentType.JSON)
+               .contentType(ContentType.JSON)
+               .when()
+               .body(Pet.builder()
+                       .name("Bojack")
+                       .number(50)
+                       .price(70d)
+                       .type(Type.builder()
+                               .id(1)
+                               .type("chat")
+                               .build())
+                       .build())
+               .post("/pet")
+               .then()
+               .body("id", equalTo(2),
+                       "name", equalTo("Bojack"),
+                       "number", equalTo(50),
+                       "price", equalTo(70f),
+                       "type.id", equalTo(1),
+                       "type.type", equalTo("chat")
+
+               );
+
         given()
                 .when()
                 .get("/pet")
@@ -40,7 +67,7 @@ public class PetControllerTest {
     }
 
 
-    @Test
+   /* @Test
     public void should_delete_pets() {
         given()
                 .when()
@@ -48,6 +75,59 @@ public class PetControllerTest {
                 .then()
                 .statusCode(200);
 
+    }*/
+
+   /* {
+        "name": "Bojack",
+            "number": 50,
+            "price": 400,
+            "type": {
+        "id": 3,
+                "type": "cheval"
+    }*/
+
+
+   @Test
+    public void should_create_pets() {
+
+        given()
+                .accept(ContentType.JSON)
+                .contentType(ContentType.JSON)
+                .when()
+                .body(Pet.builder()
+                        .name("Bojack")
+                        .number(50)
+                        .price(70d)
+                        .type(Type.builder()
+                                .id(1)
+                                .type("chat")
+                                .build())
+                        .build())
+                .post("/pet")
+                .then()
+                .body("id", equalTo(2),
+                        "name", equalTo("Bojack"),
+                        "number", equalTo(50),
+                        "price", equalTo(70f),
+                        "type.id", equalTo(1),
+                        "type.type", equalTo("chat")
+
+                );
+        /*.body(equalTo(""));*/
+
+    }
+
+    /*@Test
+    public void should_read_pets() {
+
+        given()
+                .when()
+                .get("/pet")
+                .then()
+                .body("[0].id", equalTo(1));
+
+    }*/
+}
 
       /*  given()
                 .when()
@@ -73,7 +153,7 @@ public class PetControllerTest {
               .statusCode(200);
 
               "id.size", equalTo(null),*/
-    }
 
 
-}
+
+

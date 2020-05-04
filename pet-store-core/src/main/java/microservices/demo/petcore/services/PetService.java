@@ -60,14 +60,16 @@ public class PetService {
 
     }
 
-    public void createPet(PetDTO pet) {
+    public PetDTO createPet(PetDTO pet) {
 
         try {
-            repository.save(new Pet(pet.getId(), pet.getName(), pet.getNumber(), pet.getPrice(), new Type(pet.getType().getId(), pet.getType().getType())));
+           /* new String("test");
+            String jean = new String();*/
+            Pet created = repository.save(new Pet(pet.getId(), pet.getName(), pet.getNumber(), pet.getPrice(), new Type(pet.getType().getId(), pet.getType().getType())));
+            return PetMapper.mapEntityToDTO(created);
         } catch (RuntimeException e) {
             log.error("unable to create pet", e);
             throw new ApiException("Unable to create pets", 500);
         }
-
     }
 }

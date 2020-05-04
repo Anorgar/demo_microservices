@@ -6,7 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import microservices.demo.petcore.domains.dtos.PetDTO;
 import microservices.demo.petcore.domains.dtos.TypeDTO;
+import microservices.demo.petcore.helpers.TypeMapper;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,5 +35,6 @@ public class Pet {
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn
     private Type type;
+
 
 }

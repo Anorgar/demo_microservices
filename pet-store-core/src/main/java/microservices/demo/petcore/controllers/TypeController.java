@@ -30,8 +30,7 @@ public class TypeController {
 
     @Post
     public TypeDTO createType(@Body TypeDTO type) {
-        service.createType(type);
-        return (TypeDTO) HttpResponse.ok();
+       return service.createType(type);
     }
 
     @Put

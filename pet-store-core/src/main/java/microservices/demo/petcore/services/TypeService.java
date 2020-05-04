@@ -62,12 +62,13 @@ public class TypeService {
     public TypeDTO createType(TypeDTO type) {
 
         try {
-            repository.save(new Type(type.getId(), type.getType()));
+            Type created = repository.save(new Type(type.getId(), type.getType()));
+            return TypeMapper.mapEntityToDTO(created);
         } catch (RuntimeException e) {
             log.error("unable to create type", e);
             throw new ApiException("Unable to create type", 500);
         }
-        return type;
+
     }
 
 

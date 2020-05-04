@@ -69,6 +69,7 @@ public class PetControllerTest {
                 .then()
                 .statusCode(200);
 
+
     }
 
     @Test
@@ -85,6 +86,35 @@ public class PetControllerTest {
                 );
     }
 }
+
+//UPDATE
+    /*@Test
+    public void should_update_pets() {
+        given()
+                .accept(ContentType.JSON)
+                .contentType(ContentType.JSON)
+                .when()
+                .body(Pet.builder()
+                        .id(1)
+                        .name("Bojack")
+                        .number(50)
+                        .price(70d)
+                        .type(Type.builder()
+                                .id(1)
+                                .type("chat")
+                                .build())
+                        .build())
+                .put("/pet")
+                .then()
+                .body("id", equalTo(1),
+                        "name", equalTo("Bojack"),
+                        "number", equalTo(50),
+                        "price", equalTo(70f),
+                        "type.id", equalTo(1),
+                        "type.type", equalTo("chat")
+
+                );
+    }*/
 
 
 //RETRIEVE

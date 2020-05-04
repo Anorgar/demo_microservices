@@ -71,6 +71,19 @@ public class PetControllerTest {
 
     }
 
+    @Test
+    public void should_retrieve_pets() {
+        given()
+                .when()
+                .get("/pet")
+                .then()
+                .body("[0].id", equalTo(1),
+                        "[0].type.id", equalTo(1),
+                        "[0].type.type", equalTo("chat"),
+                        "[0].price", equalTo(2.99f),
+                        "[0].name", equalTo("chat persan")
+                );
+    }
 }
 
 

@@ -28,7 +28,9 @@ import org.springframework.web.servlet.ModelAndView;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-public class PetControllerTest {
+public class
+
+PetControllerTest {
 
   @Autowired
   private ApplicationContext context;

@@ -44,10 +44,11 @@ public class PetService {
         }
     }
 
-    public void PutPet(Pet pet) {
+    public PetDTO updatePet(PetDTO pet) {
 
         try {
-            repository.update(pet);
+           Pet updated = repository.update(new Pet(pet.getId(), pet.getName(), pet.getNumber(), pet.getPrice(), new Type(pet.getType().getId(), pet.getType().getType())));
+           return PetMapper.mapEntityToDTO(updated);
         } catch (RuntimeException e) {
             log.error("unable to update pet", e);
             throw new ApiException("Unable to update pets", 500);

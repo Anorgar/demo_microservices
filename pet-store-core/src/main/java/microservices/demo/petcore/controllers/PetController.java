@@ -34,9 +34,8 @@ public class PetController {
     }
 
     @Put
-    public HttpResponse PutPet(@Body Pet pet) {
-        service.PutPet(pet);
-        return HttpResponse.ok();
+    public PetDTO updatePet(@Body PetDTO pet) {
+        return service.updatePet(pet);
     }
 
     @Get(value = "/{id}")

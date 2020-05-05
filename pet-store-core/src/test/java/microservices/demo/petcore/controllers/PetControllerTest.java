@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 
 @MicronautTest
 public class PetControllerTest {
-
+   // RestAssured.defaultParser = Parser.JSON;
     @Inject
     private EmbeddedServer embeddedServer;
 
@@ -68,13 +68,37 @@ public class PetControllerTest {
                 .delete("/pet/{id}", 2)
                 .then()
                 .statusCode(200);
-
-
+//UPDATE
+        given()
+                .accept(ContentType.JSON)
+                .contentType(ContentType.JSON)
+                .when()
+                .body(Pet.builder()
+                        .id(1)
+                        .name("Bojack")
+                        .number(50)
+                        .price(70d)
+                        .type(Type.builder()
+                                .id(1)
+                                .type("chat")
+                                .build())
+                        .build())
+                .put("/pet")
+                .then()
+                .body("id", equalTo(1),
+                        "name", equalTo("Bojack"),
+                        "number", equalTo(50),
+                        "price", equalTo(70f),
+                        "type.id", equalTo(1),
+                        "type.type", equalTo("chat")
+                );
     }
 
-    @Test
+   /* @Test
     public void should_retrieve_pets() {
         given()
+                .accept(ContentType.JSON)
+                .contentType(ContentType.JSON)
                 .when()
                 .get("/pet")
                 .then()
@@ -84,11 +108,11 @@ public class PetControllerTest {
                         "[0].price", equalTo(2.99f),
                         "[0].name", equalTo("chat persan")
                 );
-    }
+    }*/
 }
 
-//UPDATE
-    /*@Test
+  /*  //UPDATE
+    @Test
     public void should_update_pets() {
         given()
                 .accept(ContentType.JSON)
@@ -112,11 +136,13 @@ public class PetControllerTest {
                         "price", equalTo(70f),
                         "type.id", equalTo(1),
                         "type.type", equalTo("chat")
-
                 );
-    }*/
 
 
+
+    }
+}
+*/
 //RETRIEVE
     /*@Test
     public void should_retrieve_pets() {

@@ -29,18 +29,6 @@ public class PetController {
         return service.updatePet(pet);
     }
 
-    /*@PostMapping(value = "/pet")
-    public String updatePet(Model model) {
-        model.addAttribute("pets", service.updatePet());
-        return "pet";
-    }
-
-    @PostMapping(value = "/pet")
-    public String deletePet(Model model) {
-        model.addAttribute("pets", service.deletePet());
-        return "pet";
-    }*/
-
     @RequestMapping("/home")
     public String Home() {
         return "home";

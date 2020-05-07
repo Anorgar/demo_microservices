@@ -7,6 +7,7 @@ import microservices.demo.petcore.domains.dtos.TypeDTO;
 import microservices.demo.petcore.domains.entities.Pet;
 import microservices.demo.petcore.domains.entities.Type;
 import microservices.demo.petcore.exceptions.ApiException;
+import microservices.demo.petcore.helpers.PetMapper;
 import microservices.demo.petcore.helpers.TypeMapper;
 import microservices.demo.petcore.repositories.TypeRepository;
 import org.apache.commons.collections.IteratorUtils;
@@ -43,10 +44,11 @@ public class TypeService {
         }
     }
 
-    public void PutType(Type type) {
+    public TypeDTO updateType(TypeDTO type) {
 
         try {
-            repository.update(type);
+            Type updated = repository.update(new Type(type.getId(), type.getType()));
+            return TypeMapper.mapEntityToDTO(updated);
         } catch (RuntimeException e) {
             log.error("unable to update type", e);
             throw new ApiException("Unable to update types", 500);

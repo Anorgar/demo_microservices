@@ -34,9 +34,8 @@ public class TypeController {
     }
 
     @Put
-    public HttpResponse PutType(@Body Type type) {
-        service.PutType(type);
-        return HttpResponse.ok();
+    public TypeDTO updateType(@Body TypeDTO type) {
+        return service.updateType(type);
     }
 
     @Get(value = "/{id}")

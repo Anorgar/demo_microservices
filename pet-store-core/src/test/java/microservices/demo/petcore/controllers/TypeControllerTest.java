@@ -4,6 +4,7 @@ import io.micronaut.runtime.server.EmbeddedServer;
 import io.micronaut.test.annotation.MicronautTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import microservices.demo.petcore.domains.entities.Pet;
 import microservices.demo.petcore.domains.entities.Type;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -55,6 +56,20 @@ public class TypeControllerTest {
                 .then()
                 .statusCode(200);
 
+//UPDATE
+        given()
+                .accept(ContentType.JSON)
+                .contentType(ContentType.JSON)
+                .when()
+                .body(Type.builder()
+                        .id(1)
+                        .type("cheval")
+                        .build())
+                .put("/type")
+                .then()
+                .body("id", equalTo(1),
+                        "type", equalTo("cheval")
+                );
 
     }
 }

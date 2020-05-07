@@ -1,32 +1,37 @@
 package microservices.demo.petapi.controllers;
 
+import io.micronaut.http.annotation.*;
+import microservices.demo.petapi.domains.Pet;
 import microservices.demo.petapi.domains.Type;
 import microservices.demo.petapi.services.TypeService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
 
-@Controller
+
+import java.util.List;
+import javax.inject.Inject;
+
+@Controller("/type")
 public class TypeController {
 
-    @Autowired
+    @Inject
     private TypeService service;
 
-    @GetMapping(value = "/type")
-    public String retrieveTypes(Model model) {
-        model.addAttribute("types", service.retrieveTypes());
-        return "type";
+    @Get
+    public List<Type> retrieveTypes() {
+        return service.retrieveTypes();
     }
 
-    @PostMapping(value = "/type")
-    public Type createType(@RequestBody Type type) {
+    @Post
+    public Type createType(@Body Type type) {
         return service.createType(type);
     }
 
-    @PutMapping(value = "/type")
-    public Type updateType(@RequestBody Type type) {
+    @Put
+    public Type updateType(@Body Type type) {
         return service.updateType(type);
     }
 
+    @Delete(value = "/{id}")
+    public Type deleteType(@PathVariable("id") Integer id) {
+        return service.deleteType(id);
+    }
 }

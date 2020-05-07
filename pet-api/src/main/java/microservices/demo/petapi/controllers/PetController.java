@@ -1,41 +1,38 @@
 package microservices.demo.petapi.controllers;
 
+import io.micronaut.http.annotation.*;
+
 import microservices.demo.petapi.domains.Pet;
 import microservices.demo.petapi.services.PetService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
 
-@Controller
+
+import java.util.List;
+import javax.inject.Inject;
+
+@Controller("/pet")
 public class PetController {
 
-    @Autowired
+    @Inject
     private PetService service;
 
-    @GetMapping(value = "/pet")
-    public String retrievePets(Model model) {
-        model.addAttribute("pets", service.retrievePets());
-        return "pet";
+    @Get
+    public List<Pet> retrievePets() {
+        return service.retrievePets();
     }
 
-    @PostMapping(value = "/pet")
-    public Pet createPet(@RequestBody Pet pet) {
+
+    @Post
+    public Pet createPet(@Body Pet pet) {
         return service.createPet(pet);
     }
 
-    @PutMapping(value = "/pet")
-    public Pet updatePet(@RequestBody Pet pet) {
+    @Put
+    public Pet updatePet(@Body Pet pet) {
         return service.updatePet(pet);
     }
 
-    @RequestMapping("/home")
-    public String Home() {
-        return "home";
-    }
-
-    @RequestMapping("/type")
-    public String Type() {
-        return "type";
+    @Delete(value = "/{id}")
+    public Pet deletePet(@PathVariable("id") Integer id) {
+        return service.deletePet(id);
     }
 }

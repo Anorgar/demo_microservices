@@ -2,23 +2,26 @@ package microservices.demo.petapi.clients;
 
 import java.util.List;
 
+import io.micronaut.http.annotation.*;
+import io.micronaut.http.client.annotation.Client;
 import microservices.demo.petapi.domains.Type;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import microservices.demo.petapi.exceptions.ApiError;
 
-@FeignClient(name = "type", url = "http://localhost:8081")
+
+@Client(value = "http://localhost:8081/type", errorType = ApiError.class)
 public interface TypeClient {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/type")
+    @Get
     List<Type> retrieveTypes();
 
-    @RequestMapping(method = RequestMethod.POST, value = "/type")
-    Type createType(@RequestBody Type type);
+    @Post
+    Type createType(@Body Type type);
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/type")
-    Type updateType(@RequestBody Type type);
+    @Put
+    Type updateType(@Body Type type);
+
+    @Delete(value = "/{id}")
+    Type deleteType(@PathVariable("id") Integer id);
 
     /*@RequestMapping(method = RequestMethod.DELETE, value = "/pet")
     Pet deletePet();*/

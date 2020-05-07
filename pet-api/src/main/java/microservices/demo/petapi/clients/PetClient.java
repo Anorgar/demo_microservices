@@ -2,25 +2,25 @@ package microservices.demo.petapi.clients;
 
 import java.util.List;
 
+import io.micronaut.http.annotation.*;
+import io.micronaut.http.client.annotation.Client;
 import microservices.demo.petapi.domains.Pet;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import microservices.demo.petapi.exceptions.ApiError;
 
-@FeignClient(name = "pet", url = "http://localhost:8081")
+
+@Client(value = "http://localhost:8081/pet", errorType = ApiError.class)
 public interface PetClient {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/pet")
+    @Get
     List<Pet> retrievePets();
 
-    @RequestMapping(method = RequestMethod.POST, value = "/pet")
-    Pet createPet(@RequestBody Pet pet);
+    @Post
+    Pet createPet(@Body Pet pet);
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/pet")
-    Pet updatePet(@RequestBody Pet pet);
+    @Put
+    Pet updatePet(@Body Pet pet);
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/pet")
-    Pet deletePet();
+    @Delete(value = "/{id}")
+    Pet deletePet(@PathVariable("id") Integer id);
 
 }

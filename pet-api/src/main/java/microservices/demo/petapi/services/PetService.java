@@ -4,16 +4,19 @@ import io.vavr.control.Try;
 
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
 import microservices.demo.petapi.clients.PetClient;
 import microservices.demo.petapi.domains.Pet;
 import microservices.demo.petapi.exceptions.ApiException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-@Service
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Slf4j
+@Singleton
 public class PetService {
 
-    @Autowired
+    @Inject
     private PetClient petClient;
 
     public List<Pet> retrievePets() {
@@ -31,8 +34,8 @@ public class PetService {
                 .getOrElseThrow(e -> new ApiException(e.getMessage(), 500));
     }
 
-    public Pet deletePet() {
-        return Try.of(() -> petClient.deletePet())
+    public Pet deletePet(Integer id) {
+        return Try.of(() -> petClient.deletePet(id))
                 .getOrElseThrow(e -> new ApiException(e.getMessage(), 500));
     }
 

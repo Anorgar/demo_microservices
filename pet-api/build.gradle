@@ -1,24 +1,16 @@
-buildscript {
 
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: '2.0.3.RELEASE'
-    }
+plugins {
+    id "com.github.johnrengelman.shadow" version "4.0.2"
+    id "io.spring.dependency-management" version "1.0.6.RELEASE"
+    id "java"
+    id "net.ltgt.apt-idea" version "0.21"
+    id "application"
 }
-
-
-
-apply plugin: 'java'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
 
 
 dependencyManagement {
     imports {
-        mavenBom "org.springframework.cloud:spring-cloud-dependencies:Finchley.RELEASE"
+        mavenBom 'io.micronaut:micronaut-bom:1.3.3'
     }
 }
 
@@ -26,45 +18,64 @@ repositories {
     mavenCentral()
 }
 
-
-
-test {
-    // Set to `true` in order to show tests on the standard output
-    testLogging.showStandardStreams = false
-}
 wrapper {
     distributionType = Wrapper.DistributionType.BIN
 }
 
+
 dependencies {
-
     annotationProcessor("org.projectlombok:lombok:1.18.8")
+    annotationProcessor("io.micronaut:micronaut-inject-java")
+    annotationProcessor("io.micronaut:micronaut-validation")
 
-    implementation("io.github.openfeign:feign-httpclient:9.5.1")
-    compile("io.github.openfeign:feign-okhttp:(9.3.1,)")
-    compile("io.github.openfeign:feign-gson:(9.3.1,)")
-    compile("io.github.openfeign:feign-slf4j:(9.3.1,)")
-    compile('com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.5')
 
-    compile('org.springframework.boot:spring-boot-starter-web') {
-        exclude module: 'spring-boot-starter-tomcat'
-    }
-    implementation("org.springframework.boot:spring-boot-starter-undertow")
-    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
-    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
-    compileOnly('org.projectlombok:lombok:1.18.8')
+    //Micronaut core imports
+    compile("io.micronaut:micronaut-inject")
+    compile("io.micronaut:micronaut-validation")
+    compile("io.micronaut:micronaut-runtime")
+    compile("io.micronaut:micronaut-http-client")
+    compile("io.micronaut:micronaut-http-server-netty")
+    compile("io.micronaut:micronaut-discovery-client")
+    compile("io.micronaut:micronaut-management")
+    compile ("io.micronaut.configuration:micronaut-hibernate-validator")
+    compile("javax.annotation:javax.annotation-api:1.3.+")
+
 
     //Helpers
     compile("io.vavr:vavr:0.9.2")
     compile("org.apache.commons:commons-lang3:3.9")
+    compile("commons-validator:commons-validator:1.6")
 
-    compile group: 'org.webjars', name: 'bootstrap', version: '4.4.1-1'
+    compileOnly('org.projectlombok:lombok:1.18.8')
+    runtime("ch.qos.logback:logback-classic:1.2.3")
 
+    testAnnotationProcessor("io.micronaut:micronaut-inject-java")
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testImplementation("io.micronaut.test:micronaut-test-junit5")
+    testImplementation("io.rest-assured:rest-assured:3.+")
+    testImplementation("io.rest-assured:json-schema-validator:3.+")
+    testImplementation("org.mockito:mockito-core:2.28.2")
+    testImplementation("org.assertj:assertj-core:3.14.0")
 
-    testImplementation("io.rest-assured:rest-assured:3.0.+")
-    testImplementation("io.rest-assured:json-schema-validator:3.0.+")
-    testImplementation("io.rest-assured:spring-mock-mvc:3.0.+")
-    testImplementation('org.springframework.boot:spring-boot-starter-test')
-    testImplementation("com.marvinformatics.feign:feign-mock:0.7")
-
+    testRuntime("org.junit.jupiter:junit-jupiter-engine")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.8")
 }
+
+mainClassName = "microservices.demo.petapi.Application"
+// use JUnit 5 platform
+test {
+    useJUnitPlatform()
+}
+tasks.withType(JavaCompile){
+    options.encoding = "UTF-8"
+    options.compilerArgs.add('-parameters')
+}
+
+shadowJar {
+    mergeServiceFiles()
+}
+
+shadowDistZip.classifier = 'shadow'
+shadowDistTar.classifier = 'shadow'
+
+run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')

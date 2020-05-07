@@ -1,15 +1,13 @@
 package microservices.demo.petapi;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import io.micronaut.runtime.Micronaut;
 
-@SpringBootApplication
-@EnableFeignClients
 public class Application {
 
+    public static final String LOG_PREFIX = "API::cart - ";
+
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        Micronaut.run(microservices.demo.petapi.Application.class);
     }
 
 }

@@ -13,10 +13,10 @@ import lombok.NoArgsConstructor;
 @Getter
 public class Pet {
 
-  private Integer id;
-  private String name;
-  private Integer number;
-  private Double price;
-  private Type type;
+    private Integer id;
+    private String name;
+    private Integer number;
+    private Double price;
+    private Type type;
 
 }

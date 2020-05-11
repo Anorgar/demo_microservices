@@ -94,7 +94,7 @@ public class PetControllerTest {
                 );
     }
 
-   /* @Test
+   @Test
     public void should_retrieve_pets() {
         given()
                 .accept(ContentType.JSON)
@@ -108,7 +108,7 @@ public class PetControllerTest {
                         "[0].price", equalTo(2.99f),
                         "[0].name", equalTo("chat persan")
                 );
-    }*/
+    }
 }
 
   /*  //UPDATE

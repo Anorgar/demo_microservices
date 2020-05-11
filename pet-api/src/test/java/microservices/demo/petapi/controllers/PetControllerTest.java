@@ -1,6 +1,6 @@
 package microservices.demo.petapi.controllers;
 
-import static org.hamcrest.core.IsEqual.equalTo;
+import static io.restassured.RestAssured.given;
 
 
 import java.util.Collections;
@@ -16,6 +16,7 @@ import microservices.demo.petapi.clients.PetClient;
 import microservices.demo.petapi.domains.Pet;
 import microservices.demo.petapi.domains.Type;
 
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -50,20 +51,25 @@ public class PetControllerTest{
         List<Pet> pets = Collections.singletonList(
                 Pet.builder()
                         .id(1)
-                        .name("caniche")
+                        .name("chat persan")
                         .number(10)
-                        .price(25.99)
-                        .type(Type.builder().id(2).type("chien").build())
+                        .price(255.99d)
+                        .type(Type.builder().id(1).type("chat").build())
                         .build());
         Mockito.doReturn(pets).when(PET_CLIENT).retrievePets();
 
-        ResultActions resultActions = mockMvc.perform(get("/pet"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("pet"))
-                .andExpect(model().attribute("pets", equalTo(pets)));
-
-        MvcResult mvcResult = resultActions.andReturn();
-        ModelAndView mv = mvcResult.getModelAndView();
+        given()
+                .accept(ContentType.JSON)
+                .contentType(ContentType.JSON)
+                .when()
+                .get("/pet")
+                .then()
+                .body("[0].id", Matchers.equalTo(1),
+                        "[0].type.id", Matchers.equalTo(1),
+                        "[0].type.type", Matchers.equalTo("chat"),
+                        "[0].price", Matchers.equalTo(255.99f),
+                        "[0].name", Matchers.equalTo("chat persan")
+                );
     }
 
 }

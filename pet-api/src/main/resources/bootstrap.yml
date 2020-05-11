@@ -1,8 +1,7 @@
 micronaut:
   application:
     name: pet-api
-  server:
-    port: 8080
+
 
 
 
